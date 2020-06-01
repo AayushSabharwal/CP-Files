@@ -143,6 +143,30 @@ void segsieve(ll n, vector<ll> &primes, ll knowtill = -1)
     }
 
 }
+
+bool isprime(ll n)
+{
+    if(n == 2)
+    {
+        return true;
+    }
+    if(n%2 == 0)
+    {
+        return false;
+    }
+
+    bool ans = true;
+    ll l = sqrtl(n)+1;
+    for(int i = 3; i < l; i+=2)
+    {
+        if(n%i == 0)
+        {
+            ans = false;
+            break;
+        }
+    }
+    return ans;
+}
 /* #endregion */
 
 /* #region BigIntegers */
