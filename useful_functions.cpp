@@ -25,18 +25,17 @@ ll fastexp(ll a, ll b)
 //(a^b)%m
 ll fastexpmodm(ll a, ll b, ll m)
 {
-    if(b == 0)
+    ll ans = 1;
+    a%=m;
+    if(a == 0) return 0;
+    while(b)
     {
-        return a%m;
-    }
-    ll x = fastexpmodm(a, b/2, m)%m;
-    if(b%2 == 0)
-    {
-        return (x*x)%m;
-    }
-    else
-    {
-        return ((x*x)%m * a%m)%m;
+        if(b%2)
+        {
+            ans = (ans*b)%m;
+        }
+        b/=2;
+        a = (a*a)%m;
     }
 }
 
