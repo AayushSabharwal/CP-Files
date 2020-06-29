@@ -8,18 +8,17 @@ using namespace std;
 // a^b
 ll fastexp(ll a, ll b)
 {
-    if(b == 0)
+    ll ans = 1;
+    while(b)
     {
-        return a;
+        if(b&1)
+        {
+            ans *= a;
+        }
+        b >>= 1;
+        a = a*a;
     }
-    if(b%2 == 0)
-    {
-        return pow(fastexp(a, b/2), 2);
-    }
-    else
-    {
-        return pow(fastexp(a, b/2), 2) * a;
-    }
+    return ans;
 }
 
 //(a^b)%m
