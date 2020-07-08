@@ -42,6 +42,10 @@ string sadd(string a, string b)
 // string a - string b. Doesn't do negative, ensure a > b
 string ssub(string a, string b)
 {
+    if(a == b)
+    {
+        return "0";
+    }
     int na = a.size();
     int nb = b.size();
 
@@ -52,27 +56,19 @@ string ssub(string a, string b)
     }
     int digits[na];
     memset(digits, 0, sizeof(digits));
-    for(int i = 0; i < nb; i++)
+    for(int i = na-1; i >= 0; i--)
     {
-        int da = a[na - 1 - i] - '0';
-        int db = b[nb - 1 - i] - '0';
+        int da = a[i] - '0';
+        int db = b[i] - '0';
         if(da >= db)
         {
-            digits[na - 1 - i] += da - db;
+            digits[i] += da - db;
         }
         else
         {
-            da += 10;
-            digits[na - 2 - i]--;
-            digits[na - 1 - i] += da - db;
-        }
-    }
-    for(int i = 1; i < na; i++)
-    {
-        if(digits[i] == -1)
-        {
             digits[i-1]--;
-            digits[i] = 9;
+            da += 10;
+            digits[i] += da - db;
         }
     }
     string ans = "";
@@ -83,6 +79,38 @@ string ssub(string a, string b)
     while(ans[0] == '0')
     {
         ans = ans.substr(1, ans.size() - 1);
+    }
+    return ans;
+}
+
+// string a / 2. ensure a is even
+string sdiv2(string a)
+{
+    if(a == "0")
+    {
+        return "0";
+    }
+    int na = a.size();
+    string ans = "";
+    int i = 0;
+    int carry = 0;
+    while(i < na)
+    {
+        int val = a[i] - '0';
+        if(carry)
+        {
+            val = 10*carry + val;
+        }
+        if(val == 1)
+        {
+            val *= 10;
+            val += a[i+1] - '0';
+            i++;
+        }
+        carry = val%2;
+        val /= 2;
+        ans = ans + char(val + '0');
+        i++;
     }
     return ans;
 }
